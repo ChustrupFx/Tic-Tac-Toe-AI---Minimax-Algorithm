@@ -1,29 +1,37 @@
 {
-  "name": "tic-tac-toe-ai-minimax-algorithm",
-  "version": "1.0.0",
-  "description": "Tic tac toe game with AI made with minimax algorithm",
-  "main": "index.js",
-  "scripts": {
-    "build": "tsc -p .",
-    "dev": "ts-node-dev src/index.ts --respawn ",
-    "test": "npm run test"
-  },
-  "repository": {
-    "type": "git",
-    "url": "git+https://github.com/ChustrupFx/Tic-Tac-Toe-AI---Minimax-Algorithm.git"
-  },
-  "keywords": [
-    "tic",
-    "tac",
-    "toe"
-  ],
-  "author": "Victor Inácio",
-  "license": "MIT",
-  "bugs": {
-    "url": "https://github.com/ChustrupFx/Tic-Tac-Toe-AI---Minimax-Algorithm/issues"
-  },
-  "homepage": "https://github.com/ChustrupFx/Tic-Tac-Toe-AI---Minimax-Algorithm#readme",
-  "dependencies": {
-    "typescript": "^4.5.5"
-  }
+    "name": "tic-tac-toe-ai-minimax-algorithm",
+    "version": "1.0.0",
+    "description": "Tic tac toe game with AI made with minimax algorithm",
+    "main": "index.js",
+    "scripts": {
+        "dev": "webpack serve --hot --mode development",
+        "build-dev": "webpack --mode development",
+        "test": "npm run test"
+    },
+    "repository": {
+        "type": "git",
+        "url": "git+https://github.com/ChustrupFx/Tic-Tac-Toe-AI---Minimax-Algorithm.git"
+    },
+    "keywords": [
+        "tic",
+        "tac",
+        "toe"
+    ],
+    "author": "Victor Inácio",
+    "license": "MIT",
+    "bugs": {
+        "url": "https://github.com/ChustrupFx/Tic-Tac-Toe-AI---Minimax-Algorithm/issues"
+    },
+    "homepage": "https://github.com/ChustrupFx/Tic-Tac-Toe-AI---Minimax-Algorithm#readme",
+    "devDependencies": {
+        "@babel/core": "^7.17.0",
+        "@babel/preset-env": "^7.16.11",
+        "@babel/preset-typescript": "^7.16.7",
+        "babel-loader": "^8.2.3",
+        "html-webpack-plugin": "^5.5.0",
+        "webpack": "^5.68.0",
+        "webpack-cli": "^4.9.2",
+        "webpack-dev-server": "^4.7.4"
+    },
+    "dependencies": {}
 }
