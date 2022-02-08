@@ -4,6 +4,8 @@
   "description": "Tic tac toe game with AI made with minimax algorithm",
   "main": "index.js",
   "scripts": {
+    "build": "tsc -p .",
+    "dev": "ts-node-dev src/index.ts --respawn ",
     "test": "npm run test"
   },
   "repository": {
@@ -20,5 +22,8 @@
   "bugs": {
     "url": "https://github.com/ChustrupFx/Tic-Tac-Toe-AI---Minimax-Algorithm/issues"
   },
-  "homepage": "https://github.com/ChustrupFx/Tic-Tac-Toe-AI---Minimax-Algorithm#readme"
+  "homepage": "https://github.com/ChustrupFx/Tic-Tac-Toe-AI---Minimax-Algorithm#readme",
+  "dependencies": {
+    "typescript": "^4.5.5"
+  }
 }
