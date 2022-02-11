@@ -4,22 +4,106 @@ new p5(sketch);
 
 const canvasSize = 500;
 const linesOffset = canvasSize / 3;
+const squareSize: number = linesOffset;
 const generalStrokeWeight = 3;
 const board: string[][] = [
-    ['X', 'O', 'X'],
-    ['O', 'X', 'O'],
-    ['X', 'X', 'X'],
+    ['', '', ''],
+    ['', '', ''],
+    ['', '', ''],
 ];
+var currentFigure = 'X';
 
 function sketch(p: p5) {
     p.setup = () => {
         p.createCanvas(canvasSize, canvasSize);
+    };
+
+    p.draw = () => {
         createOlds(p);
         drawBoardFigures(p);
         drawLines(p);
     };
 
-    p.draw = () => {};
+    p.mousePressed = () => {
+        for (const rowIndex in board) {
+            const row = board[rowIndex];
+            for (const columnIndex in row) {
+                const figureInCurrentSquare = row[columnIndex];
+
+                if (figureInCurrentSquare != '') continue;
+
+                const squareX: number = parseFloat(columnIndex) * squareSize;
+                const squareY: number = parseFloat(rowIndex) * squareSize;
+
+                if (p.mouseX < 0 || p.mouseX > canvasSize) continue;
+                if (p.mouseY < 0 || p.mouseY > canvasSize) continue;
+
+                if (
+                    p.mouseX >= squareX &&
+                    p.mouseX < squareX + squareSize &&
+                    p.mouseY > squareY &&
+                    p.mouseY <= squareY + squareSize
+                ) {
+                    row[columnIndex] = currentFigure;
+
+                    currentFigure = currentFigure === 'X' ? 'O' : 'X';
+                }
+            }
+        }
+    };
+}
+
+function checkForWinner(): boolean {
+    return (
+        checkForDiagonalWin() ||
+        checkForHorizontalWin() ||
+        checkForVerticalWin()
+    );
+
+    function checkForDiagonalWin(): boolean {
+        const firstDiagonalConcatenated =
+            board[0][0] + board[1][1] + board[2][2];
+
+        const secondDiagonalConcatenated =
+            board[0][2] + board[1][1] + board[2][0];
+
+        if (
+            firstDiagonalConcatenated === 'XXX' ||
+            firstDiagonalConcatenated === 'OOO'
+        )
+            return true;
+
+        if (
+            secondDiagonalConcatenated === 'XXX' ||
+            secondDiagonalConcatenated === 'OOO'
+        )
+            return true;
+
+        return false;
+    }
+
+    function checkForVerticalWin(): boolean {
+        for (let i = 0; i < 3; i++) {
+            const concatenated = board[0][i] + board[1][i] + board[2][i];
+
+            if (concatenated === 'XXX' || concatenated === 'OOO') return true;
+        }
+
+        return false;
+    }
+}
+
+function checkForHorizontalWin(): boolean {
+    for (const row of board) {
+        const concatenated = row.reduce(
+            (accumulator, figure) => (accumulator += figure),
+            ''
+        );
+
+        if (concatenated === 'XXX' || concatenated === 'OOO') return true;
+    }
+
+    return false;
 }
 
 // Old === squares
@@ -35,7 +119,6 @@ function createOlds(p: p5): void {
 
 function drawBoardFigures(p: p5): void {
     const padding: number = 70;
-    const squareSize: number = linesOffset;
 
     for (const rowIndex in board) {
         const column: string[] = board[rowIndex];
@@ -67,7 +150,6 @@ function drawBoardFigures(p: p5): void {
         const firstLineX2 = (columnIndex + 1) * squareSize - padding / 2;
         const firstLineY2 = (rowIndex + 1) * squareSize - padding / 2;
         p.line(firstLineX1, firstLineY1, firstLineX2, firstLineY2);
-        console.log(rowIndex * squareSize + padding / 2);
 
         const secondLineX1 = (columnIndex + 1) * squareSize - padding / 2;
         const secondLineY1 = rowIndex * squareSize + padding / 2;
