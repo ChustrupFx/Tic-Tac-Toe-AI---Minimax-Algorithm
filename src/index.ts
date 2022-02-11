@@ -11,7 +11,8 @@ const board: string[][] = [
     ['', '', ''],
     ['', '', ''],
 ];
-var currentFigure = 'X';
+var currentFigure: string = 'X';
+var someoneWon: boolean = false;
 
 function sketch(p: p5) {
     p.setup = () => {
@@ -25,6 +26,8 @@ function sketch(p: p5) {
     };
 
     p.mousePressed = () => {
+        if (someoneWon) return;
+
         for (const rowIndex in board) {
             const row = board[rowIndex];
             for (const columnIndex in row) {
@@ -45,6 +48,12 @@ function sketch(p: p5) {
                     p.mouseY <= squareY + squareSize
                 ) {
                     row[columnIndex] = currentFigure;
+
+                    if (checkForWinner()) {
+                        someoneWon = true;
+
+                        return;
+                    }
 
                     currentFigure = currentFigure === 'X' ? 'O' : 'X';
                 }
